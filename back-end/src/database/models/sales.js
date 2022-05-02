@@ -1,4 +1,3 @@
-// column names id, user_id, seller_id, total_price, delivery_adress,  delivery_number, sale_date, status 
 module.exports = (sequelize, DataTypes) => {
   const Sales = sequelize.define('Sales', {
     // id: {
@@ -14,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'seller_id',
     },
     totalPrice: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL(9, 2),
       field: 'total_price',
     },
     deliveryAddress: {
