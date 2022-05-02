@@ -1,10 +1,9 @@
-// columns name id name price url_image
 module.exports = (sequelize, DataTypes) => {
   const Products = sequelize.define('Products', {
-    // id: {
-    //   type: DataTypes.INTEGER,
-    //   primaryKey: true,
-    // },
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
     },
@@ -18,13 +17,4 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
   return Products;
-}
-    },
-url_image: {
-  type: DataTypes.STRING,
-    },
-  }, {
-  timestamps: false,
-  });
-return Products;
-}
+};
