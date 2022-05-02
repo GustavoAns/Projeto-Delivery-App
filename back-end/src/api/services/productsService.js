@@ -13,6 +13,11 @@ const getAllProducts = async () => {
   return { status: 200, message: emailFind };
 };
 
+const createProduct = async (name, price, urlImage) => {
+  await Product.create({ name, price, urlImage });
+  return { status: 201, message: 'produto criado' };
+};
 module.exports = {
   getAllProducts,
+  createProduct,
 };

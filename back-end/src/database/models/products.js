@@ -1,17 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
+    // id: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    // },
     name: {
       type: DataTypes.STRING,
     },
     price: {
       type: DataTypes.DECIMAL(4, 2),
     },
-    url_image: {
+    urlImage: {
       type: DataTypes.STRING,
+      field: 'url_image',
     },
   }, {
     timestamps: false,
