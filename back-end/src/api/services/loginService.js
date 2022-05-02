@@ -1,5 +1,5 @@
 const JWT = require('jsonwebtoken');
-const userModel = require('../../database/models');
+const { User } = require('../../database/models');
 
 const generateToken = (data) => JWT.sign(data, process.env.JWT_SECRET || 'secret_key',
 {
@@ -26,10 +26,10 @@ const validEmailPassword = async (email, password) => {
 };
 
 const loginValidation = async (email, password) => {
-  const validations = validEmailPassword(email, password);
+  const validations = await validEmailPassword(email, password);
   if (validations != null) return validations;
-  const emailFind = await userModel.findOne({ where: { email } });
-  if (emailFind === null) {
+  const emailFind = await User.findOne({ where: { email }, raw: true });
+  if (!emailFind) {
     return {
       error: 'usuário ou senha invalida',
       status: 400,
@@ -37,7 +37,7 @@ const loginValidation = async (email, password) => {
   }
   if (emailFind.password === password) {
     const token = generateToken({ id: emailFind.id, role: emailFind.role });
-    return { status: 200, message: token };
+    return { status: 200, message: { id: emailFind.id, token, role: emailFind.role } };
   }
   return {
     error: 'usuário ou senha invalida',
