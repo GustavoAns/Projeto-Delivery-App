@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: false,
-    tableName: 'product'
+    tableName: 'products'
   });
   Product.associate = (models) => {
     Product.hasMany(models.saleProduct, {
