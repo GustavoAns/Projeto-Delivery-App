@@ -23,8 +23,14 @@ const updateProduct = async (name, price, urlImage, id) => {
   return { status: 201, message: 'atualizado' };
 };
 
+const deleteProduct = async (id) => {
+  await Product.destroy({ where: { id } });
+  return { status: 200, message: 'atualizado' };
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
   updateProduct,
+  deleteProduct,
 };
