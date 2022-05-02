@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Sales = sequelize.define('Sales', {
-    // id: {
-    //   type: DataTypes.INTEGER,
-    //   primaryKey: true,
-    // },
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
       field: 'user_id',
@@ -34,5 +34,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: false,
   });
+  Sales.associate = (models) => {
+    Sales.hasMany(models.salesProducts, {
+      foreignKey: {
+        name: 'saleId',
+        field: 'sale_id',
+      },
+    });
+  }
   return Sales;
-}
+};
