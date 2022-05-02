@@ -17,7 +17,14 @@ const createProduct = async (name, price, urlImage) => {
   await Product.create({ name, price, urlImage });
   return { status: 201, message: 'produto criado' };
 };
+
+const updateProduct = async (name, price, urlImage, id) => {
+  await Product.update({ name, price, urlImage }, { where: { id } });
+  return { status: 201, message: 'atualizado' };
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
+  updateProduct,
 };

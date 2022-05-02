@@ -2,7 +2,11 @@ const express = require('express');
 const JWT = require('jsonwebtoken');
 
 const router = express.Router();
-const { getAllProducts, createProduct } = require('../controllers/productsController');
+const {
+  getAllProducts,
+  createProduct,
+  updateProduct,
+} = require('../controllers/productsController');
 
 router.get('/', getAllProducts);
 
@@ -19,5 +23,7 @@ router.use((request, response, next) => {
 });
 
 router.post('/', createProduct);
+
+router.put('/:id', updateProduct);
 
 module.exports = router;

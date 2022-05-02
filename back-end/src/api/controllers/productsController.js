@@ -25,7 +25,19 @@ const createProduct = async (req, res) => {
   return res.status(emailFind.status).json(emailFind.message);
 };
 
+const updateProduct = async (req, res) => {
+  const { name, price, urlImage } = req.body; 
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const validation = tokenValidation(token);
+  if (!validation) return res.status(401).json('Usuario não autorizado');
+  const emailFind = await productsService.updateProduct(name, price, urlImage, id);
+  if (emailFind.status !== 201) return res.status(emailFind.status).json(emailFind.error);
+  return res.status(emailFind.status).json(emailFind.message);
+};
+
 module.exports = {
   getAllProducts,
   createProduct,
+  updateProduct,
 };
