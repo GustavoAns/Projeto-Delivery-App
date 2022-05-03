@@ -108,10 +108,9 @@ const getAllSales = async (tokenId) => {
 // };
 
 const getById = async (tokenId, id) => {
-  const emailFind = await Sale.findOne({ where: { id },
-    raw: true,
+  const emailFind = await Sale.findAll({ where: { id },
     include: [
-      { model: SalesProduct },
+      { model: SalesProduct, as: 'listProducts', attributes: ['product_id', 'quantity'] },
     ],
   });
   return { status: 200, message: emailFind };

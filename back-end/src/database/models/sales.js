@@ -46,15 +46,15 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  // Sale.associate = (models) => {
-  //   Sale.hasMany(models.SalesProduct, {
-  //     foreignKey: {
-  //       name: 'saleId',
-  //       field: 'sale_id',
-  //     },
-  //     as: 'sales_products'
-  //   });
-  // };
+  Sale.associate = (models) => {
+    Sale.hasMany(models.SalesProduct, {
+      foreignKey: {
+        name: 'saleId',
+        field: 'sale_id',
+      },
+      as: 'listProducts'
+    });
+  };
 
   return Sale;
 };
