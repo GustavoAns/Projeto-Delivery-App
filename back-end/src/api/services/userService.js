@@ -55,8 +55,7 @@ const generateTotalPrice = async (listProducts) => {
 
 const generateSale = async (body, totalPrice) => {
   const { userId, sellerId, deliveryAddress, deliveryNumber } = body;
-  const tipo = typeof userId;
-  console.log(tipo);
+
   const createdSele = await Sale.create({
     userId,
     sellerId,
@@ -66,6 +65,7 @@ const generateSale = async (body, totalPrice) => {
     saleDate: new Date(),
     status: 'em progresso',
   });
+
   return createdSele;
 };
 
@@ -79,6 +79,7 @@ const generateSaleProd = async (listProducts, saleId) => {
 
 const createSale = async (body) => {
   const { listProducts } = body;
+  
   const totalPrice = await generateTotalPrice(listProducts);
 
   const createdSele = await generateSale(body, totalPrice);
