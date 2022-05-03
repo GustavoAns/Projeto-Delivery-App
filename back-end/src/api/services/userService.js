@@ -93,8 +93,33 @@ const getAllSales = async (tokenId) => {
   const emailFind = await Sale.findAll({ where: { userId: tokenId }, raw: true });
   return { status: 200, message: emailFind };
 };
+
+// const getById = async (tokenId, id) => {
+//   const emailFind = await Sale.findAll({ where: { id },
+//     raw: true,
+//     include: {
+//       model: SalesProduct,
+//       where: {
+//         saleId: id,
+//       },
+//     },
+//   });
+//   return { status: 200, message: emailFind };
+// };
+
+const getById = async (tokenId, id) => {
+  const emailFind = await Sale.findOne({ where: { id },
+    raw: true,
+    include: [
+      { model: SalesProduct },
+    ],
+  });
+  return { status: 200, message: emailFind };
+};
+
 module.exports = {
   registerValidation,
   createSale,
   getAllSales,
+  getById,
 };

@@ -2,7 +2,12 @@ const express = require('express');
 const JWT = require('jsonwebtoken');
 
 const router = express.Router();
-const { registerValidation, createSale, getAllSales, getById } = require('../controllers/userController');
+const {
+  registerValidation,
+  createSale,
+  getAllSales,
+  getById,
+} = require('../controllers/userController');
 
 router.post('/register', registerValidation);
 
