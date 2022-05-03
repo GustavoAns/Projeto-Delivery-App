@@ -35,10 +35,18 @@ const createSale = async (req, res) => {
 };
 
 const getAllSales = async (req, res) => {
-  // const { userId, sellerId, deliveryAddress, deliveryNumber, listProducts } = req.body;
   const token = req.headers.authorization;
   const tokenId = getIdByToken(token);
   const allSales = await userService.getAllSales(tokenId);
+  if (allSales.status !== 200) return res.status(allSales.status).json(allSales.error);
+  return res.status(allSales.status).json(allSales.message);
+};
+
+const getById = async (req, res) => {
+  const token = req.headers.authorization;
+  const { id } = req.params;
+  const tokenId = getIdByToken(token);
+  const allSales = await userService.getById(tokenId, id);
   if (allSales.status !== 200) return res.status(allSales.status).json(allSales.error);
   return res.status(allSales.status).json(allSales.message);
 };
@@ -47,4 +55,5 @@ module.exports = {
   registerValidation,
   createSale,
   getAllSales,
+  getById,
 };

@@ -48,6 +48,16 @@ const deleteProduct = async (req, res) => {
   return res.status(emailFind.status).json();
 };
 
+// const getById = async (req, res) => {
+//   const { id } = req.params;
+//   const token = req.headers.authorization;
+//   const validation = tokenValidation(token);
+//   if (!validation) return res.status(401).json(userDenied);
+//   const emailFind = await productsService.deleteProduct(id);
+//   if (emailFind.status !== 200) return res.status(emailFind.status).json(emailFind.error);
+//   return res.status(emailFind.status).json();
+// };
+
 module.exports = {
   getAllProducts,
   createProduct,

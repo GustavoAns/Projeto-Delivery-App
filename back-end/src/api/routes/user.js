@@ -2,7 +2,7 @@ const express = require('express');
 const JWT = require('jsonwebtoken');
 
 const router = express.Router();
-const { registerValidation, createSale, getAllSales } = require('../controllers/userController');
+const { registerValidation, createSale, getAllSales, getById } = require('../controllers/userController');
 
 router.post('/register', registerValidation);
 
@@ -21,5 +21,7 @@ router.use((request, response, next) => {
 router.post('/sales', createSale);
 
 router.get('/sales', getAllSales);
+
+router.get('/sales/:id', getById);
 
 module.exports = router;
