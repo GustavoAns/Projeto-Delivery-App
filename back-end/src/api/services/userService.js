@@ -113,7 +113,16 @@ const getById = async (tokenId, id) => {
       { model: SalesProduct, as: 'listProducts', attributes: ['product_id', 'quantity'] },
     ],
   });
-  return { status: 200, message: emailFind };
+  
+  if (emailFind[0].userId === tokenId || emailFind[0].sellerId === tokenId) {
+    return { status: 200, message: emailFind };
+  }
+  return { status: 401, error: 'Não Autorizado.' };
+};
+
+const updateById = async (id, status) => {
+  await Sale.update({ status }, { where: { id } });
+  return { status: 200, message: 'alterada status com sucesso.' };
 };
 
 module.exports = {
@@ -121,4 +130,5 @@ module.exports = {
   createSale,
   getAllSales,
   getById,
+  updateById,
 };

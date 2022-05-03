@@ -7,6 +7,7 @@ const {
   createSale,
   getAllSales,
   getById,
+  updateById,
 } = require('../controllers/userController');
 
 router.post('/register', registerValidation);
@@ -28,5 +29,7 @@ router.post('/sales', createSale);
 router.get('/sales', getAllSales);
 
 router.get('/sales/:id', getById);
+
+router.put('/sales/:id', updateById);
 
 module.exports = router;

@@ -51,9 +51,20 @@ const getById = async (req, res) => {
   return res.status(allSales.status).json(allSales.message);
 };
 
+const updateById = async (req, res) => {
+  // const token = req.headers.authorization;
+  const { status } = req.body;
+  const { id } = req.params;
+  // const tokenId = getIdByToken(token);
+  const allSales = await userService.updateById(id, status);
+  if (allSales.status !== 200) return res.status(allSales.status).json(allSales.error);
+  return res.status(allSales.status).json(allSales.message);
+};
+
 module.exports = {
   registerValidation,
   createSale,
   getAllSales,
   getById,
+  updateById,
 };
