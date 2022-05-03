@@ -1,5 +1,5 @@
 const JWT = require('jsonwebtoken');
-const { User } = require('../../database/models');
+const { User, Product, Sale, SalesProduct } = require('../../database/models');
 
 const generateToken = (data) => JWT.sign(data, process.env.JWT_SECRET || 'secret_key',
 {
@@ -42,6 +42,53 @@ const registerValidation = async (name, email, password) => {
   return { status: 201, message: { id, token, role } };
 };
 
+const generateTotalPrice = async (listProducts) => {
+  let acumulador = 0;
+  await Promise.all(
+    listProducts.map(async (obj) => {
+      const findProd = await Product.findOne({ where: { id: obj.id }, raw: true });
+      acumulador += (Number(findProd.price) * obj.quantity);
+    }),
+  );
+  return acumulador;
+};
+
+const generateSale = async (body, totalPrice) => {
+  const { userId, sellerId, deliveryAddress, deliveryNumber } = body;
+  const tipo = typeof userId;
+  console.log(tipo);
+  const createdSele = await Sale.create({
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    saleDate: new Date(),
+    status: 'em progresso',
+  });
+  return createdSele;
+};
+
+const generateSaleProd = async (listProducts, saleId) => {
+  await Promise.all(
+    listProducts.map(async (obj) => {
+      await SalesProduct.create({ saleId, productId: obj.id, quantity: obj.quantity });
+    }),
+  );
+};
+
+const createSale = async (body) => {
+  const { listProducts } = body;
+  const totalPrice = await generateTotalPrice(listProducts);
+
+  const createdSele = await generateSale(body, totalPrice);
+  
+  await generateSaleProd(listProducts, createdSele.id);
+
+  return { status: 201, message: 'Criado' };
+};
+
 module.exports = {
   registerValidation,
+  createSale,
 };
