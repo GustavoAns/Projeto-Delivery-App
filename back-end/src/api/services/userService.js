@@ -53,17 +53,17 @@ const generateTotalPrice = async (listProducts) => {
   return acumulador;
 };
 
-const generateSale = async (body, totalPrice) => {
-  const { userId, sellerId, deliveryAddress, deliveryNumber } = body;
+const generateSale = async (body, totalPrice, tokenId) => {
+  const { sellerId, deliveryAddress, deliveryNumber } = body;
 
   const createdSele = await Sale.create({
-    userId,
+    userId: tokenId,
     sellerId,
     totalPrice,
     deliveryAddress,
     deliveryNumber,
     saleDate: new Date(),
-    status: 'em progresso',
+    status: 'Pendente',
   });
 
   return createdSele;
@@ -77,19 +77,24 @@ const generateSaleProd = async (listProducts, saleId) => {
   );
 };
 
-const createSale = async (body) => {
+const createSale = async (body, tokenId) => {
   const { listProducts } = body;
   
   const totalPrice = await generateTotalPrice(listProducts);
 
-  const createdSele = await generateSale(body, totalPrice);
+  const createdSele = await generateSale(body, totalPrice, tokenId);
   
   await generateSaleProd(listProducts, createdSele.id);
 
   return { status: 201, message: 'Criado' };
 };
 
+const getAllSales = async (tokenId) => {
+  const emailFind = await Sale.findAll({ where: { userId: tokenId }, raw: true });
+  return { status: 200, message: emailFind };
+};
 module.exports = {
   registerValidation,
   createSale,
+  getAllSales,
 };

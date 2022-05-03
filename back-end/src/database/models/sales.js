@@ -46,5 +46,14 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  Sale.associate = (models) => {
+    Sale.hasMany(models.SalesProduct, {
+      foreignKey: {
+        name: 'productId',
+        field: 'product_id',
+      },
+    });
+  };
+
   return Sale;
 };
