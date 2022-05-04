@@ -11,14 +11,13 @@ import OrderDetails from '../pages/OrderDetails';
 import SellerOrders from '../pages/SellerOrders';
 import SellerOrder from '../pages/SellerOrder';
 import Manage from '../pages/Manage';
-function RoutesApp() {
+
+function RoutesPrivates() {
+  <Routes>
+  <Route path="/login" element={ <Home /> } />
+  </Routes>
   return (
     <Routes>
-
-      
-      <Route path="/" element={ <Login /> } />
-      <Route path="/login" element={ <Home /> } />
-      <Route path="/register" element={ <Register /> } />
       <Route path="/customer/products" element={ <Products /> } />
       <Route path="/customer/checkout" element={ <Checkout /> } />
       <Route path="/customer/orders" element={ <Orders /> } />
@@ -32,4 +31,4 @@ function RoutesApp() {
   );
 }
 
-export default RoutesApp;
+export default RoutesPrivates;
