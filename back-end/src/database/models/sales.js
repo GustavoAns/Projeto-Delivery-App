@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     deliveryAddress: {
       type: DataTypes.STRING,
-      field: 'delivery_adress',
+      field: 'delivery_address',
     },
     deliveryNumber: {
       type: DataTypes.STRING,
