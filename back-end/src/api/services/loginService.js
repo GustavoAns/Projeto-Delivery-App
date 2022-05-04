@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const { User } = require('../../database/models');
 
-const generateToken = (data) => JWT.sign(data, process.env.JWT_SECRET || 'secret_key',
+const generateToken = (data) => JWT.sign(data, process.env.JWT_SECRET,
 {
   algorithm: 'HS256',
   expiresIn: '31d',

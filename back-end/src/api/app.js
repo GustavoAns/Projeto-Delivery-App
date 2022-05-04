@@ -8,8 +8,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-// app.get('/coffee', (_req, res) => res.status(418).end());
-
 app.use('/login', login);
 
 app.use('/user', user);
