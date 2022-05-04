@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 export default function Login() {
-  const [date, setDate] = useState({ value: '' });
-  const handleChange = (event) => { setDate({ value: event.target.value }); };
+  const [formValues, setFormValues] = useState({ email: '', password: '' });
+  const [valueEmail, setValueEmail] = useState('');
+  const [valuePassword, setValuePassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    //setDate({ value: event.target.value });
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+
+    
+    if (name === "email") setFormValues({ ...formValues, email: value })
+    if (name === "password") setFormValues({ ...formValues, password: value })
+
+
+  };
+
+
   return (
     <div className="bg-light d-flex justify-content-center align-items-center vh-100">
-      <Form
+      <Form onSubmit={handleSubmit}
         className="d-flex flex-column justify-content-center
         align-items-center border p-5 box-shadow"
       >
@@ -19,6 +40,8 @@ export default function Login() {
             name="email"
             placeholder="email@trybeer.com.br"
             type="email"
+            onChange={handleInputChange}
+            value={formValues.email}
           />
         </FormGroup>
         <FormGroup>
@@ -30,9 +53,12 @@ export default function Login() {
             name="password"
             placeholder="***********"
             type="password"
+            onChange={handleInputChange}
+            value={formValues.password}
+
           />
         </FormGroup>
-        <Button type="button" color="success" className="px-4 mb-3">LOGIN</Button>
+        <Button type="submit" color="success" className="px-4 mb-3"  >LOGIN</Button>
         <Button
           type="button"
           color="success"
