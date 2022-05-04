@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate, Link } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import storage from '../utils/localStorage';
+import api from '../utils/api';
 
 export default function Login() {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
   const [valueEmail, setValueEmail] = useState('');
   const [valuePassword, setValuePassword] = useState('');
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data);
-    //setDate({ value: event.target.value });
+    api
+      .post('/login', data)
+      .then(({token}) => storage.set('token', token))
+      .then(() => navigate('/customer/products'))
+      .catch((err) => console.error(err));
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target
-
-    
     if (name === "email") setFormValues({ ...formValues, email: value })
     if (name === "password") setFormValues({ ...formValues, password: value })
-
-
   };
 
 
@@ -55,42 +58,21 @@ export default function Login() {
             type="password"
             onChange={handleInputChange}
             value={formValues.password}
-
           />
         </FormGroup>
-        <Button type="submit" color="success" className="px-4 mb-3"  >LOGIN</Button>
-        <Button
-          type="button"
-          color="success"
-          outline
-          className="px-4"
-        >
-          Ainda não tenho conta
-        </Button>
+        <Button type="submit" color="success" className="px-4 mb-3" style={{ width: '17rem' }}>LOGIN</Button>
+        <Link to="/register">
+          <Button
+            type="button"
+            color="success"
+            outline
+            className="px-4"
+            style={{ width: '17rem' }}
+          >
+            Ainda não tenho conta
+          </Button>
+        </Link>
       </Form>
-      {/* <div>
-        logo
-      </div>
-      <div>
-        nome do app
-      </div>
-      <form onSubmit={ handleChange }>
-        <label htmlFor="emailID">
-          login:
-          <input id="emailID" type="text" name={ date } onChange={ handleChange } />
-        </label>
-        <div>
-          senha
-        </div>
-        <div>
-          button de login
-          <input type="submit" value="Enviar" />
-        </div>
-      </form>
-      <div>
-        cadastra
-      </div>
-      <h1 className="display-4">Homepage</h1> */}
     </div>
   );
 }
