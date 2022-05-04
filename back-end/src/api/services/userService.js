@@ -36,7 +36,7 @@ const registerValidation = async (name, email, password) => {
     };
   }
 
-  const createdUser = await User.create({ name, email, password, role: 'user' });
+  const createdUser = await User.create({ name, email, password, role: 'cliente' });
   const { id, role } = createdUser.dataValues;
   const token = generateToken({ id, role });
   return { status: 201, message: { id, token, role } };
@@ -93,19 +93,6 @@ const getAllSales = async (tokenId) => {
   const emailFind = await Sale.findAll({ where: { userId: tokenId }, raw: true });
   return { status: 200, message: emailFind };
 };
-
-// const getById = async (tokenId, id) => {
-//   const emailFind = await Sale.findAll({ where: { id },
-//     raw: true,
-//     include: {
-//       model: SalesProduct,
-//       where: {
-//         saleId: id,
-//       },
-//     },
-//   });
-//   return { status: 200, message: emailFind };
-// };
 
 const getById = async (tokenId, id) => {
   const emailFind = await Sale.findAll({ where: { id },
