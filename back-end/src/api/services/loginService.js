@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 const { User } = require('../../database/models');
 
@@ -35,7 +36,8 @@ const loginValidation = async (email, password) => {
       status: 400,
     };
   }
-  if (emailFind.password === password) {
+  const isValid = await bcrypt.compare(password, emailFind.password);
+  if (isValid) {
     const token = generateToken({ id: emailFind.id, role: emailFind.role });
     return { status: 200, message: { id: emailFind.id, token, role: emailFind.role } };
   }
