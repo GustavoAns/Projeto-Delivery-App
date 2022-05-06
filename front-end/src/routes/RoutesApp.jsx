@@ -15,17 +15,17 @@ import Manage from '../pages/Manage';
 function RoutesApp() {
   return (
     <Routes>
-      <Route path="/" element={ <Login /> } />
-      <Route path="/login" element={ <Home /> } />
-      <Route path="/register" element={ <Register /> } />
-      <Route path="/customer/products" element={ <Products /> } />
-      <Route path="/customer/checkout" element={ <Checkout /> } />
-      <Route path="/customer/orders" element={ <Orders /> } />
-      <Route path="/customer/orders/:id" element={ <Order /> } />
-      <Route path="/customer/orders/:idVenda" element={ <OrderDetails /> } />
-      <Route path="/seller/orders" element={ <SellerOrders /> } />
-      <Route path="/seller/orders/:id" element={ <SellerOrder /> } />
-      <Route path="/admin/manage" element={ <Manage /> } />
+      <Route exact path="/" element={ <Login /> } />
+      <Route exact path="/login" element={ <Home /> } />
+      <Route exact path="/register" element={ <Register /> } />
+      <Route exact path="/customer/products" element={ <Products /> } />
+      <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/customer/orders" element={ <Orders /> } />
+      <Route exact path="/customer/orders/:id" element={ <Order /> } />
+      <Route exact path="/customer/orders/:idVenda" element={ <OrderDetails /> } />
+      <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+      <Route exact path="/seller/orders/:id" element={ <SellerOrder /> } />
+      <Route exact path="/admin/manage" element={ <Manage /> } />
     </Routes>
 
   );
