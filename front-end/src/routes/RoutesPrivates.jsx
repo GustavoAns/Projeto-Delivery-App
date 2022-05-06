@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
+// import Home from '../pages/Home';
+// import Login from '../pages/Login';
+// import Register from '../pages/Register';
 import Products from '../pages/Products';
 import Checkout from '../pages/Checkout';
 import Orders from '../pages/Orders';
@@ -13,9 +13,9 @@ import SellerOrder from '../pages/SellerOrder';
 import Manage from '../pages/Manage';
 
 function RoutesPrivates() {
-  <Routes>
-  <Route path="/login" element={ <Home /> } />
-  </Routes>
+  // <Routes>
+  //   <Route path="/login" element={ <Home /> } />
+  // </Routes>;
   return (
     <Routes>
       <Route path="/customer/products" element={ <Products /> } />

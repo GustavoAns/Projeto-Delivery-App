@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import storage from '../utils/localStorage';
 import api from '../utils/api';
 
 export default function Login() {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
-  const [valueEmail, setValueEmail] = useState('');
-  const [valuePassword, setValuePassword] = useState('');
+  // const [valueEmail, setValueEmail] = useState('');
+  // const [valuePassword, setValuePassword] = useState('');
 
   const navigate = useNavigate();
 
@@ -17,20 +17,20 @@ export default function Login() {
     const data = Object.fromEntries(formData);
     api
       .post('/login', data)
-      .then(({token}) => storage.set('token', token))
+      .then(({ token }) => storage.set('token', token))
       .then(() => navigate('/customer/products'))
       .catch((err) => console.error(err));
   };
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    if (name === "email") setFormValues({ ...formValues, email: value })
-    if (name === "password") setFormValues({ ...formValues, password: value })
+    const { name, value } = e.target;
+    if (name === 'email') setFormValues({ ...formValues, email: value });
+    if (name === 'password') setFormValues({ ...formValues, password: value });
   };
-
 
   return (
     <div className="bg-light d-flex justify-content-center align-items-center vh-100">
-      <Form onSubmit={handleSubmit}
+      <Form
+        onSubmit={ handleSubmit }
         className="d-flex flex-column justify-content-center
         align-items-center border p-5 box-shadow"
       >
@@ -43,8 +43,8 @@ export default function Login() {
             name="email"
             placeholder="email@trybeer.com.br"
             type="email"
-            onChange={handleInputChange}
-            value={formValues.email}
+            onChange={ handleInputChange }
+            value={ formValues.email }
           />
         </FormGroup>
         <FormGroup>
@@ -56,18 +56,26 @@ export default function Login() {
             name="password"
             placeholder="***********"
             type="password"
-            onChange={handleInputChange}
-            value={formValues.password}
+            onChange={ handleInputChange }
+            value={ formValues.password }
           />
         </FormGroup>
-        <Button type="submit" color="success" className="px-4 mb-3" style={{ width: '17rem' }}>LOGIN</Button>
+        <Button
+          type="submit"
+          color="success"
+          className="px-4 mb-3"
+          style={ { width: '17rem' } }
+        >
+          LOGIN
+
+        </Button>
         <Link to="/register">
           <Button
             type="button"
             color="success"
             outline
             className="px-4"
-            style={{ width: '17rem' }}
+            style={ { width: '17rem' } }
           >
             Ainda não tenho conta
           </Button>

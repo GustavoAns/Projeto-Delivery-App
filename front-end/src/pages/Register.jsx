@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 import storage from '../utils/localStorage';
 import api from '../utils/api';
 
 export default function Register() {
   const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });
-  const [valueName, setValueName] = useState('');
-  const [valueEmail, setValueEmail] = useState('');
-  const [valuePassword, setValuePassword] = useState('');
+  // const [valueName, setValueName] = useState('');
+  // const [valueEmail, setValueEmail] = useState('');
+  // const [valuePassword, setValuePassword] = useState('');
 
   const navigate = useNavigate();
 
@@ -18,21 +18,25 @@ export default function Register() {
     const data = Object.fromEntries(formData);
     api
       .post('/user/register', data)
-      .then(({token}) => storage.set('token', token))
+      .then(({ token }) => storage.set('token', token))
       .then(() => navigate('/customer/products'))
       .catch((err) => console.error(err));
   };
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    if (name === "email") setFormValues({ ...formValues, email: value })
-    if (name === "password") setFormValues({ ...formValues, password: value })
-    if (name === "name") setFormValues({ ...formValues, name: value })
+    const { name, value } = e.target;
+    if (name === 'email') setFormValues({ ...formValues, email: value });
+    if (name === 'password') setFormValues({ ...formValues, password: value });
+    if (name === 'name') setFormValues({ ...formValues, name: value });
   };
 
   return (
-    <Container className="bg-light d-flex flex-column justify-content-center align-items-center vh-100">
+    <Container
+      className="bg-light
+    d-flex flex-column justify-content-center align-items-center vh-100"
+    >
       <h1 className="text-center display-4">Cadastro</h1>
-      <Form onSubmit={handleSubmit}
+      <Form
+        onSubmit={ handleSubmit }
         className="d-flex flex-column justify-content-center
         align-items-center border p-5 box-shadow"
       >
@@ -45,8 +49,8 @@ export default function Register() {
             name="name"
             placeholder="Seu nome"
             type="text"
-            onChange={handleInputChange}
-            value={formValues.name}
+            onChange={ handleInputChange }
+            value={ formValues.name }
           />
         </FormGroup>
         <FormGroup>
@@ -58,8 +62,8 @@ export default function Register() {
             name="email"
             placeholder="email@trybeer.com.br"
             type="email"
-            onChange={handleInputChange}
-            value={formValues.email}
+            onChange={ handleInputChange }
+            value={ formValues.email }
           />
         </FormGroup>
         <FormGroup>
@@ -71,11 +75,19 @@ export default function Register() {
             name="password"
             placeholder="***********"
             type="password"
-            onChange={handleInputChange}
-            value={formValues.password}
+            onChange={ handleInputChange }
+            value={ formValues.password }
           />
         </FormGroup>
-        <Button type="submit" color="success" className="px-4 mb-3" style={{ width: '17rem' }}>CADASTRAR</Button>
+        <Button
+          type="submit"
+          color="success"
+          className="px-4 mb-3"
+          style={ { width: '17rem' } }
+        >
+          CADASTRAR
+
+        </Button>
       </Form>
     </Container>
   );

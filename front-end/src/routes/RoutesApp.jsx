@@ -11,11 +11,10 @@ import OrderDetails from '../pages/OrderDetails';
 import SellerOrders from '../pages/SellerOrders';
 import SellerOrder from '../pages/SellerOrder';
 import Manage from '../pages/Manage';
+
 function RoutesApp() {
   return (
     <Routes>
-
-      
       <Route path="/" element={ <Login /> } />
       <Route path="/login" element={ <Home /> } />
       <Route path="/register" element={ <Register /> } />
