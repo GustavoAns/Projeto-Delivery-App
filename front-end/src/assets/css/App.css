@@ -1,8 +1,12 @@
 :root {
-  --dark-green: #036B52;
-  --light-green: #2FC18C;
+
+  --dark-green: #036b52;
+
+  --light-green: #2fc18c;
+
   --purple: #421981;
-  --blue: #056CF9;
+  
+  --blue: #056cf9;
 }
 
 .dark-green {
