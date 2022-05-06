@@ -6,18 +6,16 @@ import api from '../utils/api';
 
 export default function Login() {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
-  // const [valueEmail, setValueEmail] = useState('');
-  // const [valuePassword, setValuePassword] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const payload = Object.fromEntries(formData);
     api
-      .post('/login', data)
-      .then(({ token }) => storage.set('token', token))
+      .post('/login', payload)
+      .then(({ data }) => storage.set('token', data.token))
       .then(() => navigate('/customer/products'))
       .catch((err) => console.error(err));
   };
