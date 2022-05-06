@@ -1,6 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Products from '../pages/Products';
@@ -16,8 +15,8 @@ import NotFound from '../pages/NotFound';
 function RoutesApp() {
   return (
     <Routes>
-      <Route exact path="/" element={ <Login /> } />
-      <Route exact path="/login" element={ <Home /> } />
+      <Route exact path="/" element={ <Navigate to="/login" /> } />
+      <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
