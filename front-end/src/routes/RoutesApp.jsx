@@ -11,6 +11,7 @@ import OrderDetails from '../pages/OrderDetails';
 import SellerOrders from '../pages/SellerOrders';
 import SellerOrder from '../pages/SellerOrder';
 import Manage from '../pages/Manage';
+import NotFound from '../pages/NotFound';
 
 function RoutesApp() {
   return (
@@ -26,6 +27,7 @@ function RoutesApp() {
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrder /> } />
       <Route exact path="/admin/manage" element={ <Manage /> } />
+      <Route element={ <NotFound /> } />
     </Routes>
 
   );
