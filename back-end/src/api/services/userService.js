@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 const { User, Product, Sale, SalesProduct } = require('../../database/models');
 
@@ -36,7 +37,9 @@ const registerValidation = async (name, email, password) => {
     };
   }
 
-  const createdUser = await User.create({ name, email, password, role: 'cliente' });
+  const salt = bcrypt.genSaltSync();
+  const passwordHash = bcrypt.hashSync(password, salt);
+  const createdUser = await User.create({ name, email, password: passwordHash, role: 'customer' });
   const { id, role } = createdUser.dataValues;
   const token = generateToken({ id, role });
   return { status: 201, message: { id, token, role } };
