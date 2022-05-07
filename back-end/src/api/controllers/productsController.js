@@ -5,7 +5,7 @@ const userDenied = 'Usuario não autorizado';
 
 const tokenValidation = (token) => {
   const retornoJWT = JWT.verify(token, process.env.JWT_SECRET);
-  if (retornoJWT.role !== 'cliente') {
+  if (retornoJWT.role !== 'customer') {
     return true;
   }
   return false;
