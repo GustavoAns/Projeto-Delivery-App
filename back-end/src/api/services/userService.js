@@ -33,7 +33,7 @@ const registerValidation = async (name, email, password) => {
   if (emailFind) {
     return {
       error: 'usuário ja existe.',
-      status: 400,
+      status: 409,
     };
   }
 
