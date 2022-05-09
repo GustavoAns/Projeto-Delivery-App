@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
-// import storage from '../utils/localStorage';
-// import ProdutoCard from '../components/ProdutoCard';
-// import api from '../services/api';
+import React, { useEffect, useState } from 'react';
+import ProdutoCard from '../components/ProdutoCard';
+import api from '../services/api';
 
 // import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-// import storage from '../utils/localStorage';
 
 export default function Products() {
-  // const [itens] = useState([]);
-  // const [itens] = useState([]);
+  const [itens, setItens] = useState([]);
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
@@ -17,13 +14,10 @@ export default function Products() {
 
   // const navigate = useNavigate();
 
-  // tenho que fazer uma função que tras os os dados da api para renderizar o card de produtos
-  // salvar os itens no estado da pagina e usar map para renderisar
-
   useEffect(() => {
-    // storage pega o meu token
-    // api
-    // salvar o setItens
+    api
+      .get('/products')
+      .then((response) => setItens(response));
   }, []);
 
   // const handleClick = (e) => {
@@ -40,12 +34,12 @@ export default function Products() {
   return (
     <span>
       <Navbar />
-      { /* itens.map(callback(<ProdutoCard
+      { itens.map(callback(<ProdutoCard
         id={ 2 }
         price={ 1 }
         image={ 1 }
         title={ 2 }
-      />)) */ }
+      />)) }
 
       <button
         type="button"
