@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import ProdutoCard from '../components/ProdutoCard';
 
 export default function Products() {
-  const [itens] = useState();
+  const [itens] = useState([]);
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',

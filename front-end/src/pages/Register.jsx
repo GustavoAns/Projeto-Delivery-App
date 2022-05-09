@@ -7,24 +7,34 @@ import validationEmail from '../utils/validations';
 
 export default function Register() {
   const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });
+  const [alertStatus, setAlertStatus] = useState({ open: false, message: '' });
   const dataTestId = {
     inputName: 'common_register__input-name',
     inputEmail: 'common_register__input-email',
     inputPassword: 'common_register__input-password',
     buttonRegister: 'common_register__button-register',
+    alertOcult: 'common_register__element-invalid_register',
   };
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const openAlert = (message) => {
+    const TIME_FOR_CLOSE = 5000;
+    setAlertStatus({ open: true, message });
+    setTimeout(() => setAlertStatus({ open: false, message: '' }), TIME_FOR_CLOSE);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    api
-      .post('/user/register', data)
-      .then(({ token }) => storage.set('token', token))
-      .then(() => navigate('/customer/products'))
-      .catch((err) => console.error(err));
+    const paylaod = Object.fromEntries(formData);
+    try {
+      const { token } = await api.post('/user/register', paylaod);
+      storage.set('token', token);
+      navigate('/customer/products');
+    } catch ({ response: { data } }) {
+      openAlert(data);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -44,6 +54,16 @@ export default function Register() {
     const passwordIsValid = password && +password.length >= MIN_LENGTH_PASSWORD;
     return [emailIsValid, passwordIsValid, nameIsValid].every((field) => field);
   };
+
+  const alertElement = () => (
+    <p
+      style={ { color: 'red' } }
+      value={ alertStatus.message }
+      data-testid={ dataTestId.alertOcult }
+    >
+      {alertStatus.message}
+    </p>
+  );
 
   const {
     inputEmail,
@@ -88,6 +108,7 @@ export default function Register() {
             onChange={ handleInputChange }
             value={ formValues.email }
           />
+          { alertStatus.open && alertElement()}
         </FormGroup>
         <FormGroup>
           <Label for="password">
@@ -112,7 +133,6 @@ export default function Register() {
           style={ { width: '17rem' } }
         >
           CADASTRAR
-
         </Button>
       </Form>
     </Container>
