@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import { useNavigate } from 'react-router-dom';
-
 import Navbar from '../components/Navbar';
 // import storage from '../utils/localStorage';
-import ProdutoCard from '../components/ProdutoCard';
+// import ProdutoCard from '../components/ProdutoCard';
 
 export default function Products() {
-  const [itens] = useState([]);
+  // const [itens] = useState([]);
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
@@ -28,18 +27,18 @@ export default function Products() {
   //     .catch(({ response: { data } }) => openAlert(data));
   // };
 
-  const handleInputChange = ({ target }) => {
-    const { name, value } = target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
+  // const handleInputChange = ({ target }) => {
+  //   const { name, value } = target;
+  //   setFormValues({
+  //     ...formValues,
+  //     [name]: value,
+  //   });
+  // };
 
   return (
     <span>
       <Navbar />
-      {itens.map(callback(<ProdutoCard
+      {/* {itens.map(callback(<ProdutoCard
         data-testid={ inputEmail }
         id="email"
         name="email"
@@ -47,7 +46,8 @@ export default function Products() {
         type="email"
         onChange={ handleInputChange }
         value={ formValues.email }
-      />))}
+      />))} */}
+      OK
 
       {/* { // customer_products__button-cart
         // customer_products__checkout-bottom-value
