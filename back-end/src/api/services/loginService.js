@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const md5 = require('md5');
 const JWT = require('jsonwebtoken');
 const { User } = require('../../database/models');
 
@@ -29,22 +30,16 @@ const validEmailPassword = async (email, password) => {
 const loginValidation = async (email, password) => {
   const validations = await validEmailPassword(email, password);
   if (validations != null) return validations;
-  const emailFind = await User.findOne({ where: { email }, raw: true });
-  if (!emailFind) {
+  const passwordMd5 = md5(password);
+  const userFind = await User.findOne({ where: { email, password: passwordMd5 }, raw: true });
+  if (!userFind) {
     return {
       error: 'usuário ou senha invalida',
-      status: 400,
+      status: 404,
     };
   }
-  const isValid = await bcrypt.compare(password, emailFind.password);
-  if (isValid) {
-    const token = generateToken({ id: emailFind.id, role: emailFind.role });
-    return { status: 200, message: { id: emailFind.id, token, role: emailFind.role } };
-  }
-  return {
-    error: 'usuário ou senha invalida',
-    status: 400,
-  };
+  const token = generateToken({ id: userFind.id, role: userFind.role });
+  return { status: 200, message: { id: userFind.id, token, role: userFind.role } };
 };
 
 module.exports = {
