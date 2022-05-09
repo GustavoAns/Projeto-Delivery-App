@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 import storage from '../utils/localStorage';
-import api from '../utils/api';
+import api from '../services/api';
 
 export default function Register() {
   const [formValues, setFormValues] = useState({ name: '', email: '', password: '' });

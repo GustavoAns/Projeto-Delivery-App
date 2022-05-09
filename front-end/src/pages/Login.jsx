@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import storage from '../utils/localStorage';
-import api from '../utils/api';
+import api from '../services/api';
 import validationEmail from '../utils/validations';
 
 export default function Login() {
