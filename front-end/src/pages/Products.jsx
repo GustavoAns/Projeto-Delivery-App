@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import storage from '../utils/localStorage';
+// import api from '../services/api';
 // import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
@@ -6,16 +8,18 @@ import Navbar from '../components/Navbar';
 import ProdutoCard from '../components/ProdutoCard';
 
 export default function Products() {
-  const [itens] = useState();
-  // const dataTestId = {
-  //   buttonCusPro: 'customer_products__button-cart',
-  //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
-  // };
+  const [itens] = useState([]);
 
   // const navigate = useNavigate();
 
   // tenho que fazer uma função que tras os os dados da api para renderizar o card de produtos
   // salvar os itens no estado da pagina e usar map para renderisar
+
+  useEffect(() => {
+    // storage pega o meu token
+    // api
+    // salvar o setItens
+  }, []);
 
   // const handleClick = (e) => {
   //   e.preventDefault();
@@ -28,30 +32,25 @@ export default function Products() {
   //     .catch(({ response: { data } }) => openAlert(data));
   // };
 
-  const handleInputChange = ({ target }) => {
-    const { name, value } = target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-
   return (
     <span>
       <Navbar />
       {itens.map(callback(<ProdutoCard
-        data-testid={ inputEmail }
-        id="email"
-        name="email"
-        placeholder="email@trybeer.com.br"
-        type="email"
-        onChange={ handleInputChange }
-        value={ formValues.email }
+        id={ 2 }
+        price={ 1 }
+        image={ 1 }
+        title={ 2 }
       />))}
 
-      {/* { // customer_products__button-cart
-        // customer_products__checkout-bottom-value
-      } */}
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+      >
+        Ver Carrinho:
+      </button>
+      {/*
+        /customer_products__checkout-bottom-value
+      */}
     </span>
   );
 }
