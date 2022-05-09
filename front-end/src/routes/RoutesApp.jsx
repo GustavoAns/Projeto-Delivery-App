@@ -15,7 +15,7 @@ import NotFound from '../pages/NotFound';
 function RoutesApp() {
   return (
     <Routes>
-      <Route exact path="/" element={ <Navigate to="/login" /> } />
+      <Route exact path="/" element={<Navigate replace to="/login" />} />
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
