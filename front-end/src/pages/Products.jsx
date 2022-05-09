@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 // import storage from '../utils/localStorage';
+// import ProdutoCard from '../components/ProdutoCard';
 // import api from '../services/api';
-// import { useNavigate } from 'react-router-dom';
 
+// import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 // import storage from '../utils/localStorage';
-import ProdutoCard from '../components/ProdutoCard';
 
 export default function Products() {
-  const [itens] = useState([]);
+  // const [itens] = useState([]);
+  // const [itens] = useState([]);
+  // const dataTestId = {
+  //   buttonCusPro: 'customer_products__button-cart',
+  //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
+  // };
 
   // const navigate = useNavigate();
 
@@ -35,12 +40,12 @@ export default function Products() {
   return (
     <span>
       <Navbar />
-      {itens.map(callback(<ProdutoCard
+      { /* itens.map(callback(<ProdutoCard
         id={ 2 }
         price={ 1 }
         image={ 1 }
         title={ 2 }
-      />))}
+      />)) */ }
 
       <button
         type="button"
