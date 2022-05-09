@@ -56,6 +56,9 @@ export default function Products() {
       <button>
         ver carrinho:{"R$ valor"}
       </button>
+      { // customer_products__button-cart 
+        // customer_products__checkout-bottom-value
+      }
 
 
     </span>
