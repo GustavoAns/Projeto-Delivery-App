@@ -2,12 +2,14 @@ import React, { useEffect, useContext } from 'react';
 import ProdutoCard from '../components/ProdutoCard';
 import AppContext from '../context/AppContext';
 import api from '../services/api';
-
-// import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Products() {
   const { addItemCarrinho, finishCarrinho, itens, setItens } = useContext(AppContext);
+  let navigate = useNavigate();
+
 
   // [
   //   { id: 1, quantity: 2 },
@@ -20,6 +22,11 @@ export default function Products() {
   // };
 
   // const navigate = useNavigate();
+
+  const navigateToCheckout = () => {
+    navigate('/customer/checkout');
+    return finishCarrinho();
+  }
 
   useEffect(() => {
     api
@@ -53,7 +60,7 @@ export default function Products() {
       <button
         type="button"
         data-testid="customer_products__button-cart"
-        onClick={ finishCarrinho }
+        onClick={ navigateToCheckout }
       >
         Ver Carrinho:
       </button>

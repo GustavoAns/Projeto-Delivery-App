@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import SaleCard from '../components/SaleCard';
+import Navbar from '../components/Navbar';
 
 // const arrayTest = [
 //   {
@@ -35,6 +36,7 @@ export default function Orders() {
 
   return (
     <>
+    <Navbar />
       {sales.map((objSale, i) => {
         console.log(i);
         return (
