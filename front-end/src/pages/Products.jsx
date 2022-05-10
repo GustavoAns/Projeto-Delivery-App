@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ProdutoCard from '../components/ProdutoCard';
+import AppContext from '../context/AppContext';
 import api from '../services/api';
 
 // import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 export default function Products() {
-  const [itens, setItens] = useState([]);
+  const { addItemCarrinho, finishCarrinho, itens, setItens } = useContext(AppContext);
+
+  // [
+  //   { id: 1, quantity: 2 },
+  //   { id: 2, quantity: 2 }
+  // ]
+
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
@@ -40,11 +47,13 @@ export default function Products() {
         price={ item.price }
         image={ item.urlImage }
         title={ item.name }
+        addItemCarrinho={ addItemCarrinho }
       />)) }
 
       <button
         type="button"
         data-testid="customer_products__button-cart"
+        onClick={ finishCarrinho }
       >
         Ver Carrinho:
       </button>
