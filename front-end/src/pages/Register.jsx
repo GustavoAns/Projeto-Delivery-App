@@ -29,8 +29,8 @@ export default function Register() {
     const formData = new FormData(e.target);
     const paylaod = Object.fromEntries(formData);
     try {
-      const { token } = await api.post('/user/register', paylaod);
-      storage.set('token', token);
+      const response = await api.post('/user/register', paylaod);
+      storage.set('token', response.data.token);
       navigate('/customer/products');
     } catch ({ response: { data } }) {
       openAlert(data);

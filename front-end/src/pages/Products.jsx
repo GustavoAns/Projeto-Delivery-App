@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 
 export default function Products() {
   const [itens, setItens] = useState([]);
+  const [loading, setLoading] = useState(false);
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
@@ -17,7 +18,7 @@ export default function Products() {
   useEffect(() => {
     api
       .get('/products')
-      .then((response) => setItens(response));
+      .then((response) => setItens(response.data));
   }, []);
 
   // const handleClick = (e) => {
@@ -34,11 +35,12 @@ export default function Products() {
   return (
     <span>
       <Navbar />
-      { itens.map(callback(<ProdutoCard
-        id={ 2 }
-        price={ 1 }
-        image={ 1 }
-        title={ 2 }
+      { itens.map((item) => (<ProdutoCard
+        key={ item.id }
+        id={ item.id }
+        price={ item.price }
+        image={ item.urlImage }
+        title={ item.name }
       />)) }
 
       <button
