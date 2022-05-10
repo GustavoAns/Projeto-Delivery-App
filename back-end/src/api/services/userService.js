@@ -99,6 +99,7 @@ const getById = async (tokenId, id) => {
   const emailFind = await Sale.findAll({ where: { id },
     include: [
       { model: SalesProduct, as: 'listProducts', attributes: ['product_id', 'quantity'] },
+      { model: User, as: 'user' },
     ],
   });
   
