@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import ItemsFromOrderDetails from '../components/ItemsFromOrderDetails';
 import api from '../services/api';
 import storage from '../utils/localStorage';
 
@@ -11,7 +11,7 @@ export default function OrderDetails() {
     saleDate: '',
     status: '',
     totalPrice: '',
-    items: [],
+    listProducts: [],
     user: {
       name: '',
     },
@@ -24,11 +24,6 @@ export default function OrderDetails() {
     sellerName: 'customer_order_details__element-order-details-label-seller-name',
     orderData: 'customer_order_details__element-order-details-label-order-date',
     deliveryStatus: 'customer_order_details__element-order-details-label-delivery-status',
-    tableItemNumber: 'customer_order_details__element-order-table-item-number-',
-    tableName: 'customer_order_details__element-order-table-name-',
-    tableQuantity: 'customer_order_details__element-order-table-quantity-',
-    tableSubtotal: 'customer_order_details__element-order-table-sub-total-',
-    tableUnitPrice: 'customer_order_details__element-order-table-unit-price-',
     totalPrice: 'customer_order_details__element-order-total-price-',
     buttonDeliveryCheck: 'customer_order_details__button-delivery-check',
   };
@@ -37,6 +32,15 @@ export default function OrderDetails() {
     api.get(`/user/sales/${idOrder}`, { headers: { Authorization: token } })
       .then(({ data: [orderResponse] }) => setOrder(orderResponse));
   }, [idOrder, token]);
+
+  const handleClickButton = () => {
+    api.put(
+      `/user/sales/${order.id}`,
+      { status: 'entregue' },
+      { headers: { Authorization: token } },
+    ).then(() => setOrder({ ...order, status: 'entregue' }))
+      .catch((err) => console.log(err.message));
+  };
 
   return (
     <>
@@ -59,11 +63,18 @@ export default function OrderDetails() {
           <button
             type="submit"
             data-testid={ dataTestids.buttonDeliveryCheck }
+            onClick={ handleClickButton }
           >
             MARCAR COMO ENTREGUE
           </button>
+
         </div>
-        card order
+        <div>
+          <ItemsFromOrderDetails items={ order.listProducts } />
+        </div>
+        <h3 data-testid={ dataTestids.totalPrice }>
+          {`Total: R$ ${order.totalPrice.replace('.', ',')}`}
+        </h3>
       </div>
     </>
   );
