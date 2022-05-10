@@ -1,11 +1,21 @@
-import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import ProdutoCard from '../components/ProdutoCard';
+import AppContext from '../context/AppContext';
+import api from '../services/api';
 import Navbar from '../components/Navbar';
-// import storage from '../utils/localStorage';
-// import ProdutoCard from '../components/ProdutoCard';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Products() {
-  // const [itens] = useState([]);
+  const { addItemCarrinho, finishCarrinho, itens, setItens } = useContext(AppContext);
+  let navigate = useNavigate();
+
+
+  // [
+  //   { id: 1, quantity: 2 },
+  //   { id: 2, quantity: 2 }
+  // ]
+
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',
@@ -13,8 +23,16 @@ export default function Products() {
 
   // const navigate = useNavigate();
 
-  // tenho que fazer uma função que tras os os dados da api para renderizar o card de produtos
-  // salvar os itens no estado da pagina e usar map para renderisar
+  const navigateToCheckout = () => {
+    navigate('/customer/checkout');
+    return finishCarrinho();
+  }
+
+  useEffect(() => {
+    api
+      .get('/products')
+      .then((response) => setItens(response.data));
+  }, []);
 
   // const handleClick = (e) => {
   //   e.preventDefault();
@@ -27,31 +45,28 @@ export default function Products() {
   //     .catch(({ response: { data } }) => openAlert(data));
   // };
 
-  // const handleInputChange = ({ target }) => {
-  //   const { name, value } = target;
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
-
   return (
     <span>
       <Navbar />
-      {/* {itens.map(callback(<ProdutoCard
-        data-testid={ inputEmail }
-        id="email"
-        name="email"
-        placeholder="email@trybeer.com.br"
-        type="email"
-        onChange={ handleInputChange }
-        value={ formValues.email }
-      />))} */}
-      OK
+      { itens.map((item) => (<ProdutoCard
+        key={ item.id }
+        id={ item.id }
+        price={ item.price }
+        image={ item.urlImage }
+        title={ item.name }
+        addItemCarrinho={ addItemCarrinho }
+      />)) }
 
-      {/* { // customer_products__button-cart
-        // customer_products__checkout-bottom-value
-      } */}
+      <button
+        type="button"
+        data-testid="customer_products__button-cart"
+        onClick={ navigateToCheckout }
+      >
+        Ver Carrinho:
+      </button>
+      {/*
+        /customer_products__checkout-bottom-value
+      */}
     </span>
   );
 }

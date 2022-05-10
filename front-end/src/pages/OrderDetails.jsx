@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ItemsFromOrderDetails from '../components/ItemsFromOrderDetails';
 import api from '../services/api';
 import storage from '../utils/localStorage';
+import Navbar from '../components/Navbar';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState({
@@ -44,6 +45,7 @@ export default function OrderDetails() {
 
   return (
     <>
+    <div><Navbar /></div>
       <div>Detalhe do pedido</div>
       <div
         style={ {
