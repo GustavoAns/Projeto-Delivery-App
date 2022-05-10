@@ -7,7 +7,6 @@ import Navbar from '../components/Navbar';
 
 export default function Products() {
   const [itens, setItens] = useState([]);
-  const [loading, setLoading] = useState(false);
   // const dataTestId = {
   //   buttonCusPro: 'customer_products__button-cart',
   //   buttonCusCheckout: 'customer_products__checkout-bottom-value',

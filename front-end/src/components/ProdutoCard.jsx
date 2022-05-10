@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardImg, CardTitle } from 'reactstrap';
 
 export default function ProdutoCard({ id, price, image, title }) {
-  // const [formValues, setFormValues] = useState({ email: '', password: '' });
+  const [quantity, setQuantity] = useState(0);
   const TAG = {
     PRICE: 'customer_products__element-card-price-',
     IMAGE: 'customer_products__img-card-bg-image-',
@@ -25,9 +25,22 @@ export default function ProdutoCard({ id, price, image, title }) {
   //     [name]: value,
   //   });
   // };
+  const removeOne = () => {
+    const newNumber = quantity - 1;
+    if (newNumber < 0) return setQuantity(0);
+    setQuantity(newNumber);
+  };
+
+  const addOne = () => {
+    const newNumber = quantity + 1;
+    setQuantity(newNumber);
+  };
 
   return (
     <Card>
+      <div>
+        {price}
+      </div>
       <CardImg
         data-testid={ TAG.IMAGE }
         top
@@ -42,8 +55,15 @@ export default function ProdutoCard({ id, price, image, title }) {
           { title }
         </CardTitle>
       </CardBody>
-      <span>add</span>
-      <span>remover</span>
+      <div>
+        <button type="button" onClick={ removeOne }>
+          -
+        </button>
+        <span>{quantity}</span>
+        <button type="button" onClick={ addOne }>
+          +
+        </button>
+      </div>
     </Card>
   );
 }
