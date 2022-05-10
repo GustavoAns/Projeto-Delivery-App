@@ -8,11 +8,14 @@ const {
   getAllSales,
   getById,
   updateById,
+  getSellers,
 } = require('../controllers/userController');
 
 router.post('/register', registerValidation);
 
 router.use(jwtController);
+
+router.get('/sellers', getSellers);
 
 router.post('/sales', createSale);
 

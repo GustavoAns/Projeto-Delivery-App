@@ -46,10 +46,17 @@ const updateById = async (req, res) => {
   return res.status(allSales.status).json(allSales.message);
 };
 
+const getSellers = async (_req, res) => {
+  const allSallers = await userService.getSellers();
+  if (allSallers.status !== 200) return res.status(allSallers.status).json(allSallers.error);
+  return res.status(allSallers.status).json(allSallers.message);
+};
+
 module.exports = {
   registerValidation,
   createSale,
   getAllSales,
   getById,
   updateById,
+  getSellers,
 };

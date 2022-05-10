@@ -114,10 +114,18 @@ const updateById = async (id, status) => {
   return { status: 200, message: 'alterada status com sucesso.' };
 };
 
+const getSellers = async () => {
+  const allSellers = await User.findAll(
+    { where: { role: 'seller' }, attributes: ['id', 'name'], raw: true },
+  );
+  return { status: 200, message: allSellers };
+};
+
 module.exports = {
   registerValidation,
   createSale,
   getAllSales,
   getById,
   updateById,
+  getSellers,
 };
