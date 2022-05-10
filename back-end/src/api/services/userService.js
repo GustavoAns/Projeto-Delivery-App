@@ -98,7 +98,8 @@ const getAllSales = async (tokenId) => {
 const getById = async (tokenId, id) => {
   const emailFind = await Sale.findAll({ where: { id },
     include: [
-      { model: SalesProduct, as: 'listProducts', attributes: ['product_id', 'quantity'] },
+      { model: SalesProduct, as: 'listProducts' },
+      { model: User, as: 'user' },
     ],
   });
   
