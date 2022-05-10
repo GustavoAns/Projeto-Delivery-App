@@ -21,7 +21,6 @@ export default function Provider({ children }) {
   };
 
   const finishCarrinho = (e) => {
-    console.log(e);
     const acumulador = [];
     itensCarrinho.map((itemCar) => {
       const [fullItem] = itens.filter((item) => item.id === itemCar.id);
@@ -30,11 +29,11 @@ export default function Provider({ children }) {
     setCarrinho(acumulador);
   };
 
-  const context = { data, carrinho, addItemCarrinho, finishCarrinho, itens, setItens };
+  const context = { data, carrinho, addItemCarrinho, finishCarrinho, itens, setItens, itensCarrinho, setItensCarrinho, setCarrinho };
 
   return (
-    <AppContext.Provider value={ context }>
-      { children }
+    <AppContext.Provider value={context}>
+      {children}
     </AppContext.Provider>
   );
 }

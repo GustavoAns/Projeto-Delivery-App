@@ -1,7 +1,8 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
 export default function OrderDetails() {
   return (
-    <div>OrderDetails</div>
+    <div><Navbar /></div>
   );
 }
