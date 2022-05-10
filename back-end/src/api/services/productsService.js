@@ -13,6 +13,11 @@ const getAllProducts = async () => {
   return { status: 200, message: emailFind };
 };
 
+const getProductById = async (id) => {
+  const product = await Product.findOne({ where: { id } });
+  return product;
+};
+
 const createProduct = async (name, price, urlImage) => {
   await Product.create({ name, price, urlImage });
   return { status: 201, message: 'produto criado' };
@@ -33,4 +38,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductById,
 };
