@@ -1,15 +1,13 @@
 import React, { useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProdutoCard from '../components/ProdutoCard';
 import AppContext from '../context/AppContext';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
-import { useNavigate } from 'react-router-dom';
-
 
 export default function Products() {
   const { addItemCarrinho, finishCarrinho, itens, setItens } = useContext(AppContext);
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   // [
   //   { id: 1, quantity: 2 },
@@ -26,13 +24,13 @@ export default function Products() {
   const navigateToCheckout = () => {
     navigate('/customer/checkout');
     return finishCarrinho();
-  }
+  };
 
   useEffect(() => {
     api
       .get('/products')
       .then((response) => setItens(response.data));
-  }, []);
+  }, [setItens]);
 
   // const handleClick = (e) => {
   //   e.preventDefault();
@@ -49,11 +47,8 @@ export default function Products() {
     <span>
       <Navbar />
       { itens.map((item) => (<ProdutoCard
+        item={ item }
         key={ item.id }
-        id={ item.id }
-        price={ item.price }
-        image={ item.urlImage }
-        title={ item.name }
         addItemCarrinho={ addItemCarrinho }
       />)) }
 

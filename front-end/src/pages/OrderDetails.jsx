@@ -45,7 +45,7 @@ export default function OrderDetails() {
 
   return (
     <>
-    <div><Navbar /></div>
+      <div><Navbar /></div>
       <div>Detalhe do pedido</div>
       <div
         style={ {

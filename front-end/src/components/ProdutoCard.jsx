@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardBody, CardImg, CardTitle } from 'reactstrap';
 
-export default function ProdutoCard({ id, price, image, title, addItemCarrinho }) {
+export default function ProdutoCard({ item }) {
   const [quantity, setQuantity] = useState(0);
   const TAG = {
     PRICE: 'customer_products__element-card-price-',
@@ -12,19 +13,8 @@ export default function ProdutoCard({ id, price, image, title, addItemCarrinho }
     BUTTON_ADD_ITEM: 'customer_products__button-card-add-item-',
   };
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   const payload = Object.fromEntries(formData);
-  // };
+  const { id, price, image, title, addItemCarrinho } = item;
 
-  // const handleInputChange = ({ target }) => {
-  //   const { name, value } = target;
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
   const removeOne = () => {
     const newNumber = quantity - 1;
     if (newNumber < 0) {
@@ -80,3 +70,10 @@ export default function ProdutoCard({ id, price, image, title, addItemCarrinho }
     </Card>
   );
 }
+
+ProdutoCard.propTypes = {
+  item: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
+};
