@@ -1,21 +1,9 @@
-import React, { useContext, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import AppContext from '../context/AppContext';
-
-const mockSellers = [
-  {
-    id: 1,
-    name: 'Seller 1',
-  },
-  {
-    id: 2,
-    name: 'Seller 2',
-  },
-  {
-    id: 3,
-    name: 'Seller 3',
-  }];
+import api from '../services/api';
+import storage from '../utils/localStorage';
 
 export default function Checkout() {
   const {
@@ -25,8 +13,15 @@ export default function Checkout() {
     setCarrinho,
   } = useContext(AppContext);
   const [formValues, setFormValues] = useState(
-    { deliveryAddress: '', deliveryNumber: '' },
+    { deliveryAddress: '',
+      deliveryNumber: '',
+      sellerId: '',
+      listProducts: itensCarrinho,
+    },
   );
+  const [sellers, setSellers] = useState([]);
+  const navigate = useNavigate();
+  const token = storage.get('token');
 
   const removeItem = (idItem) => {
     const cart = carrinho.filter((item) => item.id !== idItem);
@@ -35,10 +30,15 @@ export default function Checkout() {
     setItensCarrinho(itensCart);
   };
 
-  // const handleOrder = () => {
-  //   let navigate = useNavigate();
-  //   navigate(`/customer/orders/${carrinho.id}`);
-  // }
+  useEffect(() => {
+    api.get('/user/sellers')
+      .then(({ data }) => setSellers(data));
+  }, []);
+
+  const handleOrder = () => {
+    api.post('/user/sales', formValues, { headers: { Authorization: token } })
+      .then(({ data }) => navigate(`/customer/orders/${data.id}`));
+  };
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -64,7 +64,6 @@ export default function Checkout() {
           </tr>
         </thead>
         <tbody>
-          {console.log(itensCarrinho)}
           {
             carrinho
 
@@ -132,19 +131,19 @@ export default function Checkout() {
       </div>
       <div>
         <h2>Detalhes e Endereço para Entrega</h2>
-        <label htmlFor="vendor">
+        <label htmlFor="vendedor">
           P. Vendedora Responsavel
           <select
-            name="vendor"
+            name="sellerId"
             onChange={ handleInputChange }
             data-testid="customer_checkout__select-seller"
-            id="vendor"
+            id="vendedor"
           >
-            {
-              mockSellers.map(({ id, name }) => (
+            <option selected disabled hidden>Escolha</option>
+            {sellers
+              && sellers.map(({ id, name }) => (
                 <option key={ id } value={ id }>{ name }</option>
-              ))
-            }
+              ))}
           </select>
         </label>
         <label htmlFor="adress">
