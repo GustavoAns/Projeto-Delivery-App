@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardBody, CardImg, CardTitle } from 'reactstrap';
 
-export default function ProdutoCard({ item }) {
+export default function ProdutoCard({ item, addItemCarrinho }) {
   const [quantity, setQuantity] = useState(0);
   const TAG = {
     PRICE: 'customer_products__element-card-price-',
@@ -13,7 +13,7 @@ export default function ProdutoCard({ item }) {
     BUTTON_ADD_ITEM: 'customer_products__button-card-add-item-',
   };
 
-  const { id, price, image, title, addItemCarrinho } = item;
+  const { id, price, name, image } = item;
 
   const removeOne = () => {
     const newNumber = quantity - 1;
@@ -47,7 +47,7 @@ export default function ProdutoCard({ item }) {
           data-testid={ `${TAG.TITLE}${id}` }
           tag="h5"
         >
-          { title }
+          { name }
         </CardTitle>
       </CardBody>
       <div>
@@ -76,4 +76,5 @@ ProdutoCard.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ])).isRequired,
+  addItemCarrinho: PropTypes.func.isRequired,
 };
