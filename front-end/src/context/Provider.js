@@ -20,7 +20,7 @@ export default function Provider({ children }) {
     setItensCarrinho(newArray);
   };
 
-  const finishCarrinho = (e) => {
+  const finishCarrinho = () => {
     const acumulador = [];
     itensCarrinho.map((itemCar) => {
       const [fullItem] = itens.filter((item) => item.id === itemCar.id);
@@ -29,10 +29,19 @@ export default function Provider({ children }) {
     setCarrinho(acumulador);
   };
 
-  const context = { data, carrinho, addItemCarrinho, finishCarrinho, itens, setItens, itensCarrinho, setItensCarrinho, setCarrinho };
+  const context = {
+    data,
+    carrinho,
+    addItemCarrinho,
+    finishCarrinho,
+    itens,
+    setItens,
+    itensCarrinho,
+    setItensCarrinho,
+    setCarrinho };
 
   return (
-    <AppContext.Provider value={context}>
+    <AppContext.Provider value={ context }>
       {children}
     </AppContext.Provider>
   );
