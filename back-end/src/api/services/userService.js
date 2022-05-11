@@ -96,15 +96,17 @@ const getAllSales = async (tokenId) => {
 };
 
 const getById = async (tokenId, id) => {
-  const emailFind = await Sale.findAll({ where: { id },
+  const saleFind = await Sale.findOne({ where: { id },
     include: [
       { model: SalesProduct, as: 'listProducts' },
-      { model: User, as: 'user' },
     ],
   });
+  const userFind = await User.findOne({ where: { id: tokenId } });
+
+  const saleWithUser = { sale: saleFind, user: userFind };
   
-  if (emailFind[0].userId === tokenId || emailFind[0].sellerId === tokenId) {
-    return { status: 200, message: emailFind };
+  if (saleFind.userId === tokenId || saleFind.sellerId === tokenId) {
+    return { status: 200, message: saleWithUser };
   }
   return { status: 401, error: 'Não Autorizado.' };
 };
