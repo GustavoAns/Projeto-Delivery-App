@@ -32,14 +32,17 @@ function ItemsFromOrderDetails({ items }) {
 
   return (
     <table>
-      <tr>
-        <th>Item</th>
-        <th>Nome</th>
-        <th>Quantidade</th>
-        <th>Valor unitario</th>
-        <th>sub-total</th>
-      </tr>
-      {itemsFullData
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Nome</th>
+          <th>Quantidade</th>
+          <th>Valor unitario</th>
+          <th>sub-total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {itemsFullData
       && itemsFullData.map(({ idItem, name, quantity, priceUnit, subTotal }, index) => (
         <tr key={ idItem }>
           <td
@@ -69,11 +72,14 @@ function ItemsFromOrderDetails({ items }) {
           </td>
         </tr>
       ))}
+      </tbody>
     </table>
   );
 }
 
 ItemsFromOrderDetails.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.number).isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.objectOf(PropTypes.number),
+  ).isRequired,
 };
 export default ItemsFromOrderDetails;
