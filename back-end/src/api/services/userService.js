@@ -87,7 +87,7 @@ const createSale = async (body, tokenId) => {
   
   await generateSaleProd(listProducts, createdSele.id);
 
-  return { status: 201, message: 'Criado' };
+  return { status: 201, message: createdSele };
 };
 
 const getAllSales = async (tokenId) => {
