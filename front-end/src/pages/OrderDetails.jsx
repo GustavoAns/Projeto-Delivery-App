@@ -7,16 +7,24 @@ import Navbar from '../components/Navbar';
 
 export default function OrderDetails() {
   const [order, setOrder] = useState({
-    id: 0,
-    sellerId: 0,
-    saleDate: '',
-    status: '',
-    totalPrice: '',
-    listProducts: [],
+    sale: {
+      id: 0,
+      sellerId: 0,
+      saleDate: '',
+      status: '',
+      totalPrice: '',
+      listProducts: [],
+    },
     user: {
       name: '',
     },
   });
+  const [status, setStatus] = useState('');
+
+  const updateOrder = (data) => {
+    setOrder(data);
+    setStatus(data.sale.status);
+  };
 
   const { idOrder } = useParams();
   const token = storage.get('token');
@@ -31,17 +39,19 @@ export default function OrderDetails() {
 
   useEffect(() => {
     api.get(`/user/sales/${idOrder}`, { headers: { Authorization: token } })
-      .then(({ data: [orderResponse] }) => setOrder(orderResponse));
+      .then(({ data }) => updateOrder(data));
   }, [idOrder, token]);
 
   const handleClickButton = () => {
     api.put(
-      `/user/sales/${order.id}`,
+      `/user/sales/${order.sale.id}`,
       { status: 'entregue' },
       { headers: { Authorization: token } },
-    ).then(() => setOrder({ ...order, status: 'entregue' }))
+    ).then(() => setStatus('entregue'))
       .catch((err) => console.log(err.message));
   };
+
+  const { sale, user } = order;
 
   return (
     <>
@@ -58,10 +68,10 @@ export default function OrderDetails() {
             width: '100%',
           } }
         >
-          <p data-testid={ dataTestids.orderId }>{`PEDIDO ${order.id}`}</p>
-          <p data-testid={ dataTestids.sellerName }>{`P. Vend: ${order.user.name}`}</p>
-          <p data-testid={ dataTestids.orderData }>{order.saleDate}</p>
-          <p data-testid={ dataTestids.deliveryStatus }>{order.status}</p>
+          <p data-testid={ dataTestids.orderId }>{`PEDIDO ${sale.id}`}</p>
+          <p data-testid={ dataTestids.sellerName }>{`P. Vend: ${user.name}`}</p>
+          <p data-testid={ dataTestids.orderData }>{sale.saleDate}</p>
+          <p data-testid={ dataTestids.deliveryStatus }>{status}</p>
           <button
             type="submit"
             data-testid={ dataTestids.buttonDeliveryCheck }
@@ -72,10 +82,10 @@ export default function OrderDetails() {
 
         </div>
         <div>
-          <ItemsFromOrderDetails items={ order.listProducts } />
+          <ItemsFromOrderDetails items={ sale.listProducts } />
         </div>
         <h3 data-testid={ dataTestids.totalPrice }>
-          {`Total: R$ ${order.totalPrice.replace('.', ',')}`}
+          {`Total: R$ ${sale.totalPrice.replace('.', ',')}`}
         </h3>
       </div>
     </>
